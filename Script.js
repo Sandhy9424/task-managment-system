@@ -51,7 +51,7 @@ function addUser(){
     password=obj.password;
      let name=obj.firstName+" "+obj.middleName+" "+obj.lastName;
      console.log(obj);
-     fetch(`https://16.171.165.239:8080/user/add-user?name=${name}&email=${obj.email}&password=${obj.password}`,{method:"POST"}).then((response)=>{
+     fetch(`http://16.171.196.226:8080/user/add-user?name=${name}&email=${obj.email}&password=${obj.password}`,{method:"POST"}).then((response)=>{
         if(response.ok){
             alert("SignUp Successfull Please Log-In ");
         signUpDiv.remove();
@@ -67,7 +67,7 @@ function logIn(){
      email=document.getElementById("logEmail").value;
      password=document.getElementById("logPassword").value;
     
-    fetch(`https://16.171.165.239:8080/user/get-user?email=${email}&password=${password}`,{method:"GET"}).then((response)=>response.json()).then((data)=>{
+    fetch(`http://16.171.196.226:8080/user/get-user?email=${email}&password=${password}`,{method:"GET"}).then((response)=>response.json()).then((data)=>{
     taskList  =data.taskList;      
     addHome(data);
             loginDiv.style.display="none";
@@ -146,7 +146,7 @@ function onChange(){
      viewTask();
 }
 function deleteUser(){
-    fetch(`https://16.171.165.239:8080/user/delete-user?email=${email}`,{method:"DELETE"}).then((response)=>response.json()).then((data)=>{
+    fetch(`http://16.171.196.226:8080/user/delete-user?email=${email}`,{method:"DELETE"}).then((response)=>response.json()).then((data)=>{
         alert(data.message);
     }).catch((err)=>console.log(err));
     location.reload();
@@ -182,7 +182,7 @@ function addTaskToUser(){
         deadLine:arr[6].value.toString()
     } 
      console.log(temp , arr);
-     fetch("https://16.171.165.239:8080/task/add-task",{method:"POST" , headers:{"Content-Type":"application/json"} , body:JSON.stringify(temp)}).then((response)=>response.json()).then((data)=>{ alert(data.message); div.remove(); reRender()}).catch((err)=>console.log(err));
+     fetch("http://16.171.196.226:8080/task/add-task",{method:"POST" , headers:{"Content-Type":"application/json"} , body:JSON.stringify(temp)}).then((response)=>response.json()).then((data)=>{ alert(data.message); div.remove(); reRender()}).catch((err)=>console.log(err));
     
 }
 function viewTask(){
@@ -239,7 +239,7 @@ function addDescription(event){
              }
          divp.append(desDiv);
          document.getElementById("selectId").addEventListener("change",()=>{
-            fetch(`https://16.171.165.239:8080/task/update-status?id=${element.id}&status=${document.getElementById("selectId").value}`,{method:"PUT"}).then((response)=>response.json()).then((data)=>{    
+            fetch(`http://16.171.196.226:8080/task/update-status?id=${element.id}&status=${document.getElementById("selectId").value}`,{method:"PUT"}).then((response)=>response.json()).then((data)=>{    
             div.children[1].innerText=document.getElementById("selectId").value; 
             let img;
             if( div.children[1].innerText=="Pending"){
@@ -260,7 +260,7 @@ function addDescription(event){
       })
 }
 function reRender(){
-    fetch(`https://16.171.165.239:8080/user/get-user?email=${email}&password=${password}`,{method:"GET"}).then((response)=>response.json()).then((data)=>{
+    fetch(`http://16.171.196.226:8080/user/get-user?email=${email}&password=${password}`,{method:"GET"}).then((response)=>response.json()).then((data)=>{
     taskList  =data.taskList;
     let pc=0;
     let ipc=0;
